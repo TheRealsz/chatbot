@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './index.css'
 import { AiOutlineSend } from 'react-icons/ai'
+import axios from 'axios';
+
 
 // P map + log
 // Lembrar de nao dar deploy devido ao limite de requisicoes?
@@ -12,9 +14,43 @@ import { AiOutlineSend } from 'react-icons/ai'
 // Ver se vai ficar full ou assim mesmo no responsivo
 function App() {
 
+
   const [mensagem, setMensagem] = useState("")
   const [mensagensDiv, setMensagensDiv] = useState<string[]>([]);
   const [loading, setLoading] = useState(false)
+
+
+
+  const API_URL: string = process.env.REACT_APP_API_URL || ""
+  const API_KEY: string = process.env.REACT_APP_API_KEY || ""
+
+  async function generateResponse() {
+    try {
+      const response = await axios.post(API_URL,
+        {
+          "model": "gpt-3.5-turbo",
+          "messages": [{ "role": "user", "content": mensagem }]
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${API_KEY}`
+          }
+        }
+      )
+      const data = response.data
+      console.log(data)
+
+    } catch (error) {
+      console.log(error)
+    }
+
+    // fetch(API_URL, requestOptions).then(res => res.json()).then(data => (
+    //   console.log(data)
+    // )).catch((error) => (
+    //   console.log(error)))
+  }
 
   function handleSendMensagem() {
     setMensagensDiv([...mensagensDiv, mensagem])
@@ -24,7 +60,10 @@ function App() {
     setTimeout(() => {
       setLoading(false)
     }, 1000)
+
+    generateResponse()
   }
+
 
   return (
     <div className='flex justify-center items-center h-screen bg-slate-950'>
