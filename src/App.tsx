@@ -27,10 +27,12 @@ function App() {
   async function generateResponse() {
     try {
       const response = await axios.post(API_URL,
+        // Body
         {
           "model": "gpt-3.5-turbo",
           "messages": [{ "role": "user", "content": mensagem }]
         },
+        // header
         {
           headers: {
             Accept: "application/json",
