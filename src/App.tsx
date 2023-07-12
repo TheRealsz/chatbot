@@ -45,11 +45,6 @@ function App() {
     } catch (error) {
       console.log(error)
     }
-
-    // fetch(API_URL, requestOptions).then(res => res.json()).then(data => (
-    //   console.log(data)
-    // )).catch((error) => (
-    //   console.log(error)))
   }
 
   function handleSendMensagem() {
