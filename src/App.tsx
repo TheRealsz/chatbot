@@ -18,11 +18,15 @@ function App() {
   const [mensagem, setMensagem] = useState("")
   const [mensagensDiv, setMensagensDiv] = useState<string[]>([]);
   const [loading, setLoading] = useState(false)
+  const [resposta, setResposta] = useState<string[]>([]);
+  // const [view, setView] = useState(true)
 
 
 
   const API_URL: string = process.env.REACT_APP_API_URL || ""
   const API_KEY: string = process.env.REACT_APP_API_KEY || ""
+
+
 
   async function generateResponse() {
     try {
@@ -42,10 +46,10 @@ function App() {
         }
       )
       const data = response.data
-      console.log(data)
-
+      const messageAI = data.choices[0].message.content
+      setResposta([...resposta, messageAI])
     } catch (error) {
-      console.log(error)
+      setResposta([...resposta, "Ops, algo deu errado, tente novamente!"])
     }
   }
 
@@ -56,11 +60,11 @@ function App() {
 
     setTimeout(() => {
       setLoading(false)
+      // setView(true)
     }, 1000)
 
     generateResponse()
   }
-
 
   return (
     <div className='flex justify-center items-center h-screen bg-slate-950'>
@@ -73,9 +77,6 @@ function App() {
             <span className='h-8 w-8 text-center leading-8 mr-2 mb-2 self-end'>🤖</span>
             <p className='bg-slate-300 text-slate-950 rounded-lg py-3 px-4 max-w-75'>Ola 😃 <br /> em que posso lhe ajudar?</p>
           </li>
-          <li className="flex justify-end my-5">
-            <p className='bg-brown-rust-500 rounded-lg py-3 px-4'>Lorem ipsum dolor sit amet consectetur</p>
-          </li>
           {mensagensDiv.map((mensagemDiv, index) => (
             <li key={index} className="flex justify-end my-5">
               <p className='bg-brown-rust-500 rounded-lg py-3 px-4'>{mensagemDiv}</p>
@@ -87,6 +88,12 @@ function App() {
               <p className='bg-slate-300 text-slate-950 rounded-lg py-3 px-4 max-w-75'>Pensando...</p>
             </li>
           )}
+          {resposta.map((resposta, index) => (
+            <li key={index} className="flex">
+              <span className='h-8 w-8 text-center leading-8 mr-2 mb-2 self-end'>🤖</span>
+              <p className='bg-slate-300 text-slate-950 rounded-lg py-3 px-4 max-w-75'>{resposta}</p>
+            </li>
+          ))}
         </ul>
         <div className="flex gap-1 w-full border-t border-solid border-slate-700 bg-slate-900 py-1 px-5 bottom-0">
           <textarea placeholder='Envie uma mensagem...' className='bg-slate-900 border-none text-base resize-none py-4 pr-4 h-14 w-full outline-0 peer' value={mensagem} onChange={(e) => setMensagem(e.target.value)} required></textarea>
