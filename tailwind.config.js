@@ -14,6 +14,8 @@ module.exports = {
       },
       boxShadow: {
         'specific': '0 0 128px 0px rgba(0, 0, 0, 0.1), 0 32px 64px -48px rgba(0, 0, 0, 0.5)',
+        'hover-dark': '0 0 10px rgb(203 213 225), 0 0 40px rgb(203 213 225), 0 0 80px rgb(203 213 225)',
+        'hover': '0 0 10px rgb(71 85 105), 0 0 40px rgb(71 85 105), 0 0 80px rgb(71 85 105)'
       },
       maxWidth: {
         '75': '75%'
