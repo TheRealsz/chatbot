@@ -4,23 +4,19 @@
 
 /* Ver como posso mandar isso para o tailwind.config.js */
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 6px;
 }
 
-::-webkit-scrollbar-track {
-    background: rgb(15 23 42);
-}
-
 ::-webkit-scrollbar-thumb {
-    background: rgb(30, 41, 59);
+    background: rgb(152, 160, 171);
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(51, 65, 85);
+    background: rgb(133, 138, 144);
     border-radius: 10px;
-} */
+}
 
 html, body {
     height: 100%;

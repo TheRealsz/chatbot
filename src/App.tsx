@@ -1,30 +1,20 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './index.css'
 import { AiOutlineSend } from 'react-icons/ai'
 import { BsFillMoonStarsFill, BsSunFill } from 'react-icons/bs'
 import axios from 'axios';
 import robot from './assets/3662817.png'
 
-// Ver se vai ficar full ou assim mesmo no responsivo
-// Formatar response da API
-// P map
-// Aumentar o textarea enquanto o texto for adicionado
-// Mudar scroll junto dos dark mode
-// scroll junto da resposta?
-// Ver como posso mudar o scroll e exportar as config de la pra ca
-// Enter no textarea para ativar a função do svg
-// Contexto no chat
-// Lembrar de nao dar deploy devido ao limite de requisicoes?
 function App() {
-  
+
   const [mensagem, setMensagem] = useState("")
   const [mensagensDiv, setMensagensDiv] = useState<{ type: 'user' | 'wallbot'; content: string }[]>([]);
   const [loading, setLoading] = useState(false)
   const [mode, setMode] = useState(true)
-  
+
   const API_URL: string = process.env.REACT_APP_API_URL || ""
   const API_KEY: string = process.env.REACT_APP_API_KEY || ""
-  
+
   function handleSendMensagem() {
     setMensagensDiv((mensagemAnterior) => [...mensagemAnterior, { type: 'user', content: mensagem }])
     setMensagem('')
@@ -59,6 +49,12 @@ function App() {
     }
   }
 
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSendMensagem();
+    }
+  };
 
   return (
     <div className={`${mode ? 'dark' : ''}`}>
@@ -74,7 +70,7 @@ function App() {
             </li>
             {mensagensDiv.map((mensagemDiv, index) => (
               <li key={index} className={`flex ${mensagemDiv.type === 'wallbot' ? '' : 'justify-end'} my-5`}>
-                {mensagemDiv.type === 'wallbot' ? <img className='h-8 w-8 text-center leading-8 mr-2 mb-2 self-end' src={robot} />: ''}
+                {mensagemDiv.type === 'wallbot' ? <img className='h-8 w-8 text-center leading-8 mr-2 mb-2 self-end' src={robot} /> : ''}
                 <p className={`${mensagemDiv.type === 'wallbot' ? 'bg-slate-300' : 'bg-brown-rust-500'} ${mensagemDiv.type === 'wallbot' ? 'text-slate-950' : 'text-brown-rust-50'} rounded-lg py-3 px-4 max-w-75`}>
                   {mensagemDiv.content}
                 </p>
@@ -82,22 +78,22 @@ function App() {
             ))}
             {loading && (
               <li className="flex">
-                <span className='h-8 w-8 text-center leading-8 mr-2 mb-2 self-end'>🤖</span>
+                <img className='h-8 w-8 text-center leading-8 mr-2 mb-2 self-end' src={robot} />
                 <p className='bg-slate-300 text-slate-950 rounded-lg py-3 px-4 max-w-75'>Pensando...</p>
               </li>
             )}
           </ul>
           <div className="flex gap-1 w-full border-t border-solid border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 py-1 px-5 bottom-0 max-h40">
-            <textarea placeholder='Envie uma mensagem...' className='bg-slate-100 dark:bg-slate-900 text-slate-950 dark:text-slate-50 border-none text-base resize-none py-4 pr-4 h-14 w-full outline-0 peer ' value={mensagem} onChange={(e) => setMensagem(e.target.value)} required></textarea>
+            <textarea placeholder='Envie uma mensagem...' className='bg-slate-100 dark:bg-slate-900 text-slate-950 dark:text-slate-50 border-none text-base resize-none py-4 pr-4 h-14 w-full outline-0 peer ' value={mensagem} onChange={(e) => setMensagem(e.target.value)} onKeyDown={handleKeyPress} required></textarea>
             <AiOutlineSend className='text-brown-rust-600 text-2xl cursor-pointer self-end h-14 invisible peer-valid:visible' onClick={handleSendMensagem} />
           </div>
         </div>
       </div>
-        <div className='fixed top-4 right-4 flex bg-none max-sm:top-0 max-sm:right-0' onClick={() => setMode(!mode)}>
-          <div className='w-16 h-16 shadow-specific bg-slate-200 dark:bg-slate-900 rounded-full flex items-center justify-center max-sm:dark:bg-transparent max-sm:bg-transparent max-sm:hover:shadow-none max-sm:hover:dark:shadow-none hover:dark:shadow-hover-dark hover:shadow-hover duration-500'>
-            {mode ? <BsFillMoonStarsFill className=' text-slate-200'/> : <BsSunFill className='max-sm:text-slate-200'/>}
-          </div>
+      <div className='fixed top-4 right-4 flex bg-none max-sm:top-0 max-sm:right-0' onClick={() => setMode(!mode)}>
+        <div className='w-16 h-16 shadow-specific bg-slate-200 dark:bg-slate-900 rounded-full flex items-center justify-center max-sm:dark:bg-transparent max-sm:bg-transparent max-sm:hover:shadow-none max-sm:hover:dark:shadow-none hover:dark:shadow-hover-dark hover:shadow-hover duration-500'>
+          {mode ? <BsFillMoonStarsFill className=' text-slate-200' /> : <BsSunFill className='max-sm:text-slate-200' />}
         </div>
+      </div>
     </div>
   );
 }
