@@ -5,7 +5,6 @@ import { BsFillMoonStarsFill, BsSunFill } from 'react-icons/bs'
 import axios from 'axios';
 import robot from './assets/3662817.png'
 
-// Como evitar repetiçoes igual dos p?
 // Ver se vai ficar full ou assim mesmo no responsivo
 // Formatar response da API
 // P map
@@ -64,11 +63,11 @@ function App() {
   return (
     <div className={`${mode ? 'dark' : ''}`}>
       <div className='flex justify-center items-center h-screen bg-slate-50 dark:bg-slate-950'>
-        <div className="bg-slate-100 dark:bg-slate-900 text-brown-rust-50 w-105 rounded-xl shadow-specific overflow-hidden">
+        <div className="bg-slate-100 dark:bg-slate-900 text-brown-rust-50 w-105 rounded-xl shadow-specific overflow-hidden max-sm:w-full max-sm:h-full max-sm:rounded-none max-sm:right-0 max-sm:bottom-0">
           <header className='bg-gradient-to-r from-brown-rust-300 to-brown-rust-700 py-4 text-center'>
             <h2 className='text-2xl font-bold'>WallBot</h2>
           </header>
-          <ul className="h-125 overflow-y-auto pt-4 pr-5 pb-8 text-base max-sm:pr-1">
+          <ul className="h-125 overflow-y-auto pt-4 pr-5 pb-8 text-base max-sm:pr-1 max-sm:h-5/6">
             <li className="flex">
               <img className='h-8 w-8 text-center leading-8 mr-2 mb-2 self-end' src={robot} />
               <p className='bg-slate-300 text-slate-950 rounded-lg py-3 px-4 max-w-75'>Ola 😃 <br /> em que posso lhe ajudar?</p>
@@ -89,14 +88,14 @@ function App() {
             )}
           </ul>
           <div className="flex gap-1 w-full border-t border-solid border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 py-1 px-5 bottom-0 max-h40">
-            <textarea placeholder='Envie uma mensagem...' className='bg-slate-100 dark:bg-slate-900 text-slate-950 dark:text-slate-50 border-none text-base resize-none py-4 pr-4 h-14 w-full outline-0 peer' value={mensagem} onChange={(e) => setMensagem(e.target.value)} required></textarea>
+            <textarea placeholder='Envie uma mensagem...' className='bg-slate-100 dark:bg-slate-900 text-slate-950 dark:text-slate-50 border-none text-base resize-none py-4 pr-4 h-14 w-full outline-0 peer ' value={mensagem} onChange={(e) => setMensagem(e.target.value)} required></textarea>
             <AiOutlineSend className='text-brown-rust-600 text-2xl cursor-pointer self-end h-14 invisible peer-valid:visible' onClick={handleSendMensagem} />
           </div>
         </div>
       </div>
-        <div className='fixed top-4 right-4 flex bg-slate-50 dark:bg-slate-950' onClick={() => setMode(!mode)}>
-          <div className='w-16 h-16 shadow-specific bg-slate-200 dark:bg-slate-900 rounded-full flex items-center justify-center hover:dark:shadow-hover-dark hover:shadow-hover duration-500'>
-            {mode ? <BsFillMoonStarsFill className=' text-slate-200'/> : <BsSunFill className=''/>}
+        <div className='fixed top-4 right-4 flex bg-none max-sm:top-0 max-sm:right-0' onClick={() => setMode(!mode)}>
+          <div className='w-16 h-16 shadow-specific bg-slate-200 dark:bg-slate-900 rounded-full flex items-center justify-center max-sm:dark:bg-transparent max-sm:bg-transparent max-sm:hover:shadow-none max-sm:hover:dark:shadow-none hover:dark:shadow-hover-dark hover:shadow-hover duration-500'>
+            {mode ? <BsFillMoonStarsFill className=' text-slate-200'/> : <BsSunFill className='max-sm:text-slate-200'/>}
           </div>
         </div>
     </div>
