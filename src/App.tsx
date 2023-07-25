@@ -85,13 +85,13 @@ function App() {
           </ul>
           <div className="flex gap-1 w-full border-t border-solid border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 py-1 px-5 bottom-0 max-h40">
             <textarea placeholder='Envie uma mensagem...' className='bg-slate-100 dark:bg-slate-900 text-slate-950 dark:text-slate-50 border-none text-base resize-none py-4 pr-4 h-14 w-full outline-0 peer ' value={mensagem} onChange={(e) => setMensagem(e.target.value)} onKeyDown={handleKeyPress} required></textarea>
-            <AiOutlineSend className='text-brown-rust-600 text-2xl cursor-pointer self-end h-14 invisible peer-valid:visible' onClick={handleSendMensagem} />
+            <AiOutlineSend tabIndex={0} className='text-brown-rust-600 text-2xl cursor-pointer self-end h-14 invisible peer-valid:visible' onClick={handleSendMensagem} />
           </div>
         </div>
       </div>
       <div className='fixed top-4 right-4 flex bg-none max-sm:top-0 max-sm:right-0' onClick={() => setMode(!mode)}>
         <div className='w-16 h-16 shadow-specific bg-slate-200 dark:bg-slate-900 rounded-full flex items-center justify-center max-sm:dark:bg-transparent max-sm:bg-transparent max-sm:hover:shadow-none max-sm:hover:dark:shadow-none hover:dark:shadow-hover-dark hover:shadow-hover duration-500'>
-          {mode ? <BsFillMoonStarsFill className=' text-slate-200' /> : <BsSunFill className='max-sm:text-slate-200' />}
+          {mode ? <BsFillMoonStarsFill className='text-slate-200' tabIndex={0} /> : <BsSunFill className='max-sm:text-slate-200' tabIndex={0} />}
         </div>
       </div>
     </div>
